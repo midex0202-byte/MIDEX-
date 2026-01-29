@@ -306,8 +306,8 @@ footer { text-align:center; padding:40px 0; font-size:0.95rem; color:#64748b; bo
                     <div class="contact-detail">
                         <span class="contact-detail-icon">📱</span>
                         <div class="contact-detail-text">
-                            <strong>Phone</strong>
-                            <span>+2348063559368</span>
+                            <strong>WhatsApp</strong>
+                            <span>+234 806 355 9368</span>
                         </div>
                     </div>
                     <div class="contact-detail">
@@ -318,6 +318,7 @@ footer { text-align:center; padding:40px 0; font-size:0.95rem; color:#64748b; bo
                         </div>
                     </div>
                 </div>
+                <button class="btn-primary" style="margin-top:30px; width:100%;" onclick="window.open('https://wa.me/2348063559368?text=Hi%20Midex!%20I%20need%20a%20website', '_blank')">💬 Chat on WhatsApp</button>
             </div>
             <form class="contact-form fade-in" onsubmit="handleSubmit(event)">
                 <div class="form-group">
@@ -349,7 +350,7 @@ footer { text-align:center; padding:40px 0; font-size:0.95rem; color:#64748b; bo
         <div class="account-info">
             <div class="account-label">PalmPay Account Number</div>
             <div class="account-number" id="accountNumber">8063559368</div>
-            <div class="account-name">Oluwaseun Awobiyi </div>
+            <div class="account-name">Oluwaseun Awobiyi</div>
         </div>
         
         <button class="copy-btn" onclick="copyAccountNumber()">📋 Copy Account Number</button>
@@ -398,10 +399,19 @@ function handleSubmit(e){
     const email = document.getElementById('email').value;
     const message = document.getElementById('message').value;
     
+    // Format WhatsApp message
+    const whatsappMessage = `Hi Midex! 👋%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Email:* ${encodeURIComponent(email)}%0A%0A*Project Details:*%0A${encodeURIComponent(message)}`;
+    
+    // WhatsApp number (234 = Nigeria country code)
+    const whatsappNumber = '2348063559368';
+    
+    // Open WhatsApp with pre-filled message
+    window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, '_blank');
+    
     // Show success message
     const successMsg = document.createElement('div');
     successMsg.className = 'success-message';
-    successMsg.textContent = `Thanks ${name}! Your message has been received. I'll contact you at ${email} soon! 🎉`;
+    successMsg.textContent = `Opening WhatsApp... Send the message to reach me directly! 💬`;
     document.body.appendChild(successMsg);
     
     // Remove message after 4 seconds
