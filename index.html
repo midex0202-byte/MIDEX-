@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Midex Studio - Modern Web Development</title>
+<meta name="description" content="Professional web development services for students & small businesses. Responsive, interactive, and modern websites.">
+<style>
+/* ------------------- RESET & BASE ------------------- */
+* { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; scroll-behavior: smooth;}
+body { background:#0a0e1a; color:#e2e8f0; overflow-x:hidden; line-height:1.6; position:relative;}
+body::before { content:''; position:absolute; top:0; left:0; right:0; bottom:0; background: radial-gradient(circle at 20% 50%, rgba(99,102,241,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(168,85,247,0.1) 0%, transparent 50%); pointer-events:none; z-index:0;}
+a { text-decoration:none; color:inherit;}
+button { cursor:pointer; border:none; font-family:inherit; }
+
+/* ------------------- CONTAINER ------------------- */
+.container { width:90%; max-width:1200px; margin:0 auto; position:relative; z-index:1; }
+
+/* ------------------- HEADER ------------------- */
+header { display:flex; justify-content:space-between; align-items:center; padding:25px 0; position:sticky; top:0; background:rgba(10,14,26,0.95); backdrop-filter:blur(20px); z-index:100; border-bottom:1px solid rgba(255,255,255,0.05); transition:0.3s;}
+header.scrolled { box-shadow:0 10px 30px rgba(0,0,0,0.5); }
+header h1 { background: linear-gradient(135deg, #a855f7, #6366f1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size:1.9rem; font-weight:800; letter-spacing:-0.5px;}
+nav { display:flex; gap:8px; align-items:center;}
+nav a { padding:10px 18px; font-weight:600; font-size:0.95rem; transition:0.3s; border-radius:8px; position:relative;}
+nav a::after { content:''; position:absolute; bottom:5px; left:50%; transform:translateX(-50%) scaleX(0); width:70%; height:2px; background:#22c55e; transition:0.3s;}
+nav a:hover::after { transform:translateX(-50%) scaleX(1); }
+nav a:hover { color:#22c55e; }
+
+/* Mobile menu */
+.mobile-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer;}
+.mobile-toggle span { width:25px; height:3px; background:white; border-radius:2px; transition:0.3s;}
+
+/* ------------------- HERO ------------------- */
+.hero { display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:120px 20px 100px; perspective:1000px; position:relative; min-height:80vh;}
+.hero::before { content:''; position:absolute; width:400px; height:400px; background: radial-gradient(circle, rgba(168,85,247,0.2), transparent); border-radius:50%; top:50%; left:50%; transform:translate(-50%,-50%); filter:blur(80px); animation:pulse 4s infinite ease-in-out;}
+@keyframes pulse { 0%, 100% { transform:translate(-50%,-50%) scale(1); opacity:0.5;} 50% { transform:translate(-50%,-50%) scale(1.2); opacity:0.8;}}
+
+.hero-content { position:relative; z-index:2;}
+.hero h2 { font-size:3.5rem; margin-bottom:25px; background: linear-gradient(135deg, #facc15 0%, #f59e0b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight:900; letter-spacing:-1px; line-height:1.2; animation:slideDown 0.8s ease-out;}
+@keyframes slideDown { from { opacity:0; transform:translateY(-30px);} to { opacity:1; transform:translateY(0);}}
+
+.hero .tagline { font-size:1.4rem; margin-bottom:20px; color:#94a3b8; font-weight:400; animation:fadeIn 1s ease-out 0.3s both;}
+.hero .description { font-size:1.1rem; margin-bottom:40px; color:#cbd5e1; max-width:600px; margin-left:auto; margin-right:auto; animation:fadeIn 1s ease-out 0.5s both;}
+
+.cta-buttons { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; animation:fadeIn 1s ease-out 0.7s both;}
+.btn-primary, .btn-secondary { padding:18px 40px; border-radius:14px; font-size:1.05rem; font-weight:700; transition:0.3s; box-shadow:0 8px 25px rgba(0,0,0,0.3); position:relative; overflow:hidden;}
+.btn-primary::before, .btn-secondary::before { content:''; position:absolute; top:50%; left:50%; width:0; height:0; border-radius:50%; background:rgba(255,255,255,0.2); transform:translate(-50%,-50%); transition:0.5s;}
+.btn-primary:hover::before, .btn-secondary:hover::before { width:300px; height:300px;}
+
+.btn-primary { background: linear-gradient(135deg,#6366f1,#8b5cf6,#a855f7); color:white; }
+.btn-primary:hover { transform:translateY(-5px) scale(1.05); box-shadow:0 15px 35px rgba(99,102,241,0.4); }
+
+.btn-secondary { background: linear-gradient(135deg,#ef4444,#f59e0b); color:white; }
+.btn-secondary:hover { transform:translateY(-5px) scale(1.05); box-shadow:0 15px 35px rgba(239,68,68,0.4); }
+
+/* ------------------- STATS SECTION ------------------- */
+.stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:30px; margin:60px 0; padding:40px 0;}
+.stat-card { text-align:center; padding:30px; background:rgba(255,255,255,0.03); border-radius:16px; border:1px solid rgba(255,255,255,0.05); transition:0.3s;}
+.stat-card:hover { background:rgba(255,255,255,0.05); transform:translateY(-5px);}
+.stat-number { font-size:3rem; font-weight:800; background: linear-gradient(135deg, #22c55e, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom:10px;}
+.stat-label { color:#94a3b8; font-size:1rem; font-weight:600; text-transform:uppercase; letter-spacing:1px;}
+
+/* ------------------- FEATURE CARDS ------------------- */
+section { padding:100px 0; position:relative;}
+section h3 { font-size:2.8rem; background: linear-gradient(135deg, #a855f7, #6366f1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-align:center; margin-bottom:20px; font-weight:800; letter-spacing:-1px;}
+section .subtitle { text-align:center; color:#94a3b8; font-size:1.2rem; margin-bottom:60px; max-width:700px; margin-left:auto; margin-right:auto;}
+
+.features { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:35px; perspective:1000px; }
+.feature-card { background: linear-gradient(135deg, rgba(99,102,241,0.05), rgba(168,85,247,0.05)); backdrop-filter: blur(20px); padding:40px 30px; border-radius:24px; text-align:center; transition:0.5s; box-shadow:0 15px 40px rgba(0,0,0,0.3); transform-style: preserve-3d; border:1px solid rgba(255,255,255,0.08); position:relative; overflow:hidden;}
+.feature-card::before { content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background: radial-gradient(circle, rgba(255,255,255,0.05), transparent); transform:rotate(45deg); transition:0.5s;}
+.feature-card:hover::before { top:-60%; left:-60%;}
+.feature-card:hover { transform:translateY(-15px) rotateX(5deg) rotateY(5deg) scale(1.03); box-shadow:0 25px 50px rgba(99,102,241,0.3); border-color:rgba(168,85,247,0.3); }
+
+.feature-icon { font-size:3.5rem; margin-bottom:20px; display:inline-block; animation:float 3s ease-in-out infinite;}
+@keyframes float { 0%, 100% { transform:translateY(0px);} 50% { transform:translateY(-10px);}}
+
+.feature-card h4 { margin-bottom:15px; font-size:1.4rem; font-weight:700; background: linear-gradient(135deg, #facc15, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.feature-card p { color:#cbd5e1; line-height:1.7; font-size:1rem;}
+
+/* ------------------- PORTFOLIO SECTION ------------------- */
+.portfolio-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:30px; margin-top:50px;}
+.portfolio-item { border-radius:20px; overflow:hidden; position:relative; cursor:pointer; box-shadow:0 15px 40px rgba(0,0,0,0.4); transition:0.4s; background:#1e293b; border:1px solid rgba(255,255,255,0.05);}
+.portfolio-item:hover { transform:translateY(-10px); box-shadow:0 25px 50px rgba(0,0,0,0.5);}
+.portfolio-img { width:100%; height:240px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display:flex; align-items:center; justify-content:center; font-size:3rem; color:rgba(255,255,255,0.2); transition:0.4s;}
+.portfolio-item:hover .portfolio-img { transform:scale(1.1);}
+.portfolio-info { padding:25px; }
+.portfolio-info h4 { font-size:1.3rem; margin-bottom:10px; color:#facc15;}
+.portfolio-info p { color:#94a3b8; font-size:0.95rem; line-height:1.6;}
+
+/* ------------------- CONTACT ------------------- */
+#contact { background: linear-gradient(135deg, rgba(99,102,241,0.03), rgba(168,85,247,0.03)); padding:100px 0; }
+.contact-wrapper { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;}
+.contact-info h3 { font-size:2.5rem; margin-bottom:20px; background: linear-gradient(135deg, #a855f7, #6366f1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight:800;}
+.contact-info p { color:#94a3b8; font-size:1.1rem; margin-bottom:30px; line-height:1.8;}
+.contact-details { display:flex; flex-direction:column; gap:20px;}
+.contact-detail { display:flex; align-items:center; gap:15px; padding:15px; background:rgba(255,255,255,0.03); border-radius:12px; border:1px solid rgba(255,255,255,0.05); transition:0.3s;}
+.contact-detail:hover { background:rgba(255,255,255,0.05); transform:translateX(10px);}
+.contact-detail-icon { font-size:1.8rem;}
+.contact-detail-text strong { display:block; color:#facc15; font-size:0.9rem; margin-bottom:3px;}
+
+.contact-form { max-width:100%; background: rgba(255,255,255,0.03); padding:40px; border-radius:24px; box-shadow:0 20px 50px rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.05); backdrop-filter:blur(20px);}
+.form-group { margin-bottom:25px;}
+.form-group label { display:block; margin-bottom:10px; color:#cbd5e1; font-weight:600; font-size:0.95rem;}
+.contact-form input, .contact-form textarea { width:100%; padding:16px 20px; border-radius:12px; border:1px solid rgba(255,255,255,0.1); background:rgba(0,0,0,0.3); color:white; font-size:1rem; transition:0.3s;}
+.contact-form input:focus, .contact-form textarea:focus { outline:none; border-color:#6366f1; box-shadow:0 0 20px rgba(99,102,241,0.3); background:rgba(0,0,0,0.4); }
+.contact-form input::placeholder, .contact-form textarea::placeholder { color:#64748b;}
+.contact-form button { width:100%; padding:18px; border-radius:14px; background:linear-gradient(135deg,#6366f1,#8b5cf6,#a855f7); color:white; font-weight:700; font-size:1.1rem; transition:0.3s; box-shadow:0 10px 30px rgba(99,102,241,0.3); position:relative; overflow:hidden;}
+.contact-form button::before { content:''; position:absolute; top:50%; left:50%; width:0; height:0; border-radius:50%; background:rgba(255,255,255,0.2); transform:translate(-50%,-50%); transition:0.5s;}
+.contact-form button:hover::before { width:400px; height:400px;}
+.contact-form button:hover { transform:translateY(-3px); box-shadow:0 15px 40px rgba(99,102,241,0.4); }
+
+/* ------------------- FOOTER ------------------- */
+footer { text-align:center; padding:40px 0; font-size:0.95rem; color:#64748b; border-top:1px solid rgba(255,255,255,0.05); position:relative;}
+.footer-links { display:flex; justify-content:center; gap:30px; margin-bottom:20px;}
+.footer-links a { transition:0.3s; font-weight:600;}
+.footer-links a:hover { color:#a855f7; }
+.social-links { display:flex; justify-content:center; gap:20px; margin-bottom:25px;}
+.social-link { width:45px; height:45px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.05); border-radius:50%; font-size:1.3rem; transition:0.3s; border:1px solid rgba(255,255,255,0.1);}
+.social-link:hover { background:linear-gradient(135deg,#6366f1,#a855f7); transform:translateY(-5px) rotate(10deg); box-shadow:0 10px 25px rgba(99,102,241,0.3);}
+
+/* ------------------- ANIMATIONS ------------------- */
+.fade-in { opacity:0; transform:translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+.fade-in.visible { opacity:1; transform:translateY(0); }
+
+/* ------------------- SUCCESS MESSAGE ------------------- */
+.success-message { position:fixed; top:20px; right:20px; background:linear-gradient(135deg,#22c55e,#10b981); color:white; padding:20px 30px; border-radius:12px; box-shadow:0 10px 40px rgba(34,197,94,0.4); z-index:1000; animation:slideInRight 0.5s ease-out, slideOutRight 0.5s ease-out 3.5s; font-weight:600;}
+@keyframes slideInRight { from { transform:translateX(400px); opacity:0;} to { transform:translateX(0); opacity:1;}}
+@keyframes slideOutRight { from { transform:translateX(0); opacity:1;} to { transform:translateX(400px); opacity:0;}}
+
+/* ------------------- PALMPAY MODAL ------------------- */
+.modal-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.8); backdrop-filter:blur(5px); z-index:999; display:none; align-items:center; justify-content:center; animation:fadeIn 0.3s ease-out;}
+.modal-overlay.active { display:flex; }
+.modal-content { background:linear-gradient(135deg, #1e293b, #0f172a); border-radius:24px; padding:40px; max-width:450px; width:90%; box-shadow:0 25px 60px rgba(0,0,0,0.7); border:1px solid rgba(255,255,255,0.1); position:relative; animation:scaleIn 0.3s ease-out; text-align:center;}
+@keyframes scaleIn { from { transform:scale(0.9); opacity:0;} to { transform:scale(1); opacity:1;}}
+.modal-close { position:absolute; top:15px; right:15px; width:35px; height:35px; border-radius:50%; background:rgba(255,255,255,0.1); border:none; color:white; font-size:1.5rem; cursor:pointer; transition:0.3s; display:flex; align-items:center; justify-content:center;}
+.modal-close:hover { background:rgba(239,68,68,0.8); transform:rotate(90deg);}
+.modal-icon { font-size:4rem; margin-bottom:20px;}
+.modal-content h3 { font-size:2rem; margin-bottom:15px; background: linear-gradient(135deg, #22c55e, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight:800;}
+.modal-content p { color:#94a3b8; margin-bottom:25px; line-height:1.6; font-size:1.05rem;}
+.account-info { background:rgba(34,197,94,0.1); border:2px solid rgba(34,197,94,0.3); border-radius:16px; padding:25px; margin-bottom:25px; transition:0.3s;}
+.account-info:hover { background:rgba(34,197,94,0.15); border-color:rgba(34,197,94,0.5);}
+.account-label { color:#94a3b8; font-size:0.9rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; font-weight:600;}
+.account-number { font-size:2rem; font-weight:800; color:#22c55e; letter-spacing:2px; font-family:'Courier New', monospace; margin-bottom:8px;}
+.account-name { color:#cbd5e1; font-size:1.1rem; font-weight:600;}
+.copy-btn { padding:14px 30px; background:linear-gradient(135deg,#22c55e,#10b981); border:none; border-radius:12px; color:white; font-weight:700; font-size:1rem; cursor:pointer; transition:0.3s; margin-bottom:15px; box-shadow:0 8px 20px rgba(34,197,94,0.3); width:100%;}
+.copy-btn:hover { transform:translateY(-3px); box-shadow:0 12px 30px rgba(34,197,94,0.4);}
+.payment-confirm-btn { padding:14px 30px; background:linear-gradient(135deg,#6366f1,#8b5cf6); border:none; border-radius:12px; color:white; font-weight:700; font-size:1rem; cursor:pointer; transition:0.3s; box-shadow:0 8px 20px rgba(99,102,241,0.3); width:100%;}
+.payment-confirm-btn:hover { transform:translateY(-3px); box-shadow:0 12px 30px rgba(99,102,241,0.4);}
+
+/* ------------------- RESPONSIVE ------------------- */
+@media (max-width:968px){
+    .contact-wrapper { grid-template-columns:1fr;}
+    .stats { grid-template-columns:repeat(2,1fr);}
+}
+
+@media (max-width:768px){
+    .hero h2 { font-size:2.5rem; }
+    .hero .tagline { font-size:1.1rem; }
+    .hero .description { font-size:1rem; }
+    nav { display:none; }
+    .mobile-toggle { display:flex; }
+    nav.active { display:flex; position:absolute; top:100%; left:0; right:0; background:rgba(10,14,26,0.98); flex-direction:column; padding:20px; gap:0; border-top:1px solid rgba(255,255,255,0.1);}
+    nav.active a { padding:15px; border-bottom:1px solid rgba(255,255,255,0.05);}
+    section h3 { font-size:2.2rem; }
+    .stats { grid-template-columns:1fr;}
+    .cta-buttons { flex-direction:column; width:100%;}
+    .btn-primary, .btn-secondary { width:100%;}
+}
+
+@media (max-width:480px){
+    .hero h2 { font-size:2rem; }
+    .features { grid-template-columns:1fr; }
+    .portfolio-grid { grid-template-columns:1fr; }
+    .contact-form { padding:25px; }
+}
+</style>
+</head>
+<body>
+
+<header class="container">
+    <h1>Midex Studio</h1>
+    <div class="mobile-toggle" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <nav id="mainNav">
+        <a href="#features">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <h2>Websites That WOW Your Clients 😎</h2>
+        <p class="tagline">Modern, Interactive & Performance-Driven</p>
+        <p class="description">Professional web development for students & small businesses. Get a stunning website that converts visitors into customers.</p>
+        <div class="cta-buttons">
+            <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Start Your Project</button>
+            <button class="btn-secondary" onclick="showPalmPayInfo()">💰 Support My Work</button>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="stats fade-in">
+        <div class="stat-card">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Projects Done</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">Client Satisfaction</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Support Available</div>
+        </div>
+    </div>
+</div>
+
+<section id="features">
+    <div class="container">
+        <h3>What I Offer</h3>
+        <p class="subtitle">Cutting-edge solutions tailored to make your business shine online</p>
+        <div class="features">
+            <div class="feature-card fade-in">
+                <div class="feature-icon">💻</div>
+                <h4>Responsive Design</h4>
+                <p>Pixel-perfect websites that adapt beautifully to phones, tablets, and desktops. Your visitors get a flawless experience on any device.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">✨</div>
+                <h4>3D Interactive Elements</h4>
+                <p>Modern hover effects, smooth animations, and interactive cards that captivate your visitors and keep them engaged longer.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">⚡</div>
+                <h4>Lightning Fast & SEO</h4>
+                <p>Optimized for blazing speed and search engine visibility. Get found on Google and deliver instant page loads.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">🎨</div>
+                <h4>Custom Branding</h4>
+                <p>Unique designs that reflect your brand identity. No generic templates—your website will stand out from the crowd.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">🔒</div>
+                <h4>Secure & Reliable</h4>
+                <p>Built with security best practices and reliable hosting recommendations to keep your site safe and always online.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">📈</div>
+                <h4>Growth-Ready</h4>
+                <p>Scalable solutions that grow with your business. Easy to update and expand as your needs evolve.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="portfolio">
+    <div class="container">
+        <h3>Recent Projects</h3>
+        <p class="subtitle">Check out some websites I've built for happy clients</p>
+        <div class="portfolio-grid">
+            <div class="portfolio-item fade-in">
+                <div class="portfolio-img">🏪</div>
+                <div class="portfolio-info">
+                    <h4>E-Commerce Store</h4>
+                    <p>Modern online shop with cart functionality, payment integration, and beautiful product displays.</p>
+                </div>
+            </div>
+            <div class="portfolio-item fade-in">
+                <div class="portfolio-img">📱</div>
+                <div class="portfolio-info">
+                    <h4>Mobile App Landing</h4>
+                    <p>Eye-catching landing page for a mobile app with smooth animations and clear call-to-actions.</p>
+                </div>
+            </div>
+            <div class="portfolio-item fade-in">
+                <div class="portfolio-img">🎓</div>
+                <div class="portfolio-info">
+                    <h4>Educational Platform</h4>
+                    <p>Interactive learning portal with course management, student dashboards, and progress tracking.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <div class="container">
+        <div class="contact-wrapper">
+            <div class="contact-info fade-in">
+                <h3>Let's Build Something Amazing</h3>
+                <p>Have a project in mind? I'd love to hear about it. Drop me a message and let's turn your vision into reality!</p>
+                <div class="contact-details">
+                    <div class="contact-detail">
+                        <span class="contact-detail-icon">📧</span>
+                        <div class="contact-detail-text">
+                            <strong>Email</strong>
+                            <span>midex0202@gmail.com</span>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <span class="contact-detail-icon">📱</span>
+                        <div class="contact-detail-text">
+                            <strong>Phone</strong>
+                            <span>+2348063559368</span>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <span class="contact-detail-icon">⏰</span>
+                        <div class="contact-detail-text">
+                            <strong>Response Time</strong>
+                            <span>Within 24 hours</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form class="contact-form fade-in" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="john@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Project Details</label>
+                    <textarea id="message" rows="5" placeholder="Tell me about your project, timeline, and budget..." required></textarea>
+                </div>
+                <button type="submit">Send Message 🚀</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- PALMPAY PAYMENT MODAL -->
+<div class="modal-overlay" id="palmPayModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closePalmPayModal()">×</button>
+        <div class="modal-icon">💚</div>
+        <h3>Support My Work</h3>
+        <p>Send any amount to my PalmPay account. Every contribution helps me create more amazing projects!</p>
+        
+        <div class="account-info">
+            <div class="account-label">PalmPay Account Number</div>
+            <div class="account-number" id="accountNumber">8063559368</div>
+            <div class="account-name">Oluwaseun Awobiyi </div>
+        </div>
+        
+        <button class="copy-btn" onclick="copyAccountNumber()">📋 Copy Account Number</button>
+        <button class="payment-confirm-btn" onclick="confirmPayment()">I've Sent Payment ✓</button>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="social-links fade-in">
+            <a href="#" class="social-link" title="GitHub">💻</a>
+            <a href="#" class="social-link" title="Twitter">🐦</a>
+            <a href="#" class="social-link" title="LinkedIn">💼</a>
+            <a href="#" class="social-link" title="Instagram">📸</a>
+        </div>
+        <div class="footer-links fade-in">
+            <a href="#features">Services</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <p class="fade-in">&copy; 2026 Midex Web Studio. Crafted with 💜 in Lagos, Nigeria.</p>
+    </div>
+</footer>
+
+<script>
+// ------------------- HEADER SCROLL EFFECT -------------------
+window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    if (window.scrollY > 100) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+});
+
+// ------------------- MOBILE MENU -------------------
+function toggleMenu() {
+    const nav = document.getElementById('mainNav');
+    nav.classList.toggle('active');
+}
+
+// ------------------- CONTACT FORM -------------------
+function handleSubmit(e){
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+    
+    // Show success message
+    const successMsg = document.createElement('div');
+    successMsg.className = 'success-message';
+    successMsg.textContent = `Thanks ${name}! Your message has been received. I'll contact you at ${email} soon! 🎉`;
+    document.body.appendChild(successMsg);
+    
+    // Remove message after 4 seconds
+    setTimeout(() => {
+        successMsg.remove();
+    }, 4000);
+    
+    // Clear form
+    document.getElementById('name').value='';
+    document.getElementById('email').value='';
+    document.getElementById('message').value='';
+}
+
+// ------------------- SCROLL ANIMATIONS -------------------
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ------------------- PALMPAY PAYMENT MODAL -------------------
+function showPalmPayInfo(){
+    document.getElementById('palmPayModal').classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+}
+
+function closePalmPayModal(){
+    document.getElementById('palmPayModal').classList.remove('active');
+    document.body.style.overflow = 'auto'; // Re-enable scrolling
+}
+
+// Close modal when clicking outside
+document.getElementById('palmPayModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closePalmPayModal();
+    }
+});
+
+function copyAccountNumber(){
+    const accountNumber = document.getElementById('accountNumber').textContent;
+    
+    // Copy to clipboard
+    navigator.clipboard.writeText(accountNumber).then(() => {
+        const btn = event.target;
+        const originalText = btn.textContent;
+        btn.textContent = '✓ Copied!';
+        btn.style.background = 'linear-gradient(135deg,#10b981,#059669)';
+        
+        setTimeout(() => {
+            btn.textContent = originalText;
+            btn.style.background = 'linear-gradient(135deg,#22c55e,#10b981)';
+        }, 2000);
+    }).catch(err => {
+        alert('Account Number: ' + accountNumber);
+    });
+}
+
+function confirmPayment(){
+    closePalmPayModal();
+    
+    // Show gratitude message
+    const gratitudeMsg = document.createElement('div');
+    gratitudeMsg.className = 'success-message';
+    gratitudeMsg.innerHTML = '🙏 Thank you so much for your generous support! Your contribution means the world to me and helps fuel my passion for creating amazing projects. I truly appreciate you! 💚';
+    document.body.appendChild(gratitudeMsg);
+    
+    setTimeout(() => {
+        gratitudeMsg.remove();
+    }, 5000);
+}
+
+// ------------------- SMOOTH SCROLL FOR ALL LINKS -------------------
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Close mobile menu if open
+            document.getElementById('mainNav').classList.remove('active');
+        }
+    });
+});
+</script>
+
+</body>
+</html>
